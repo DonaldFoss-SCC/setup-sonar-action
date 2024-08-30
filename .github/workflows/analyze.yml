@@ -5,18 +5,31 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
+      
+      #      - uses: ./.github/actions/setup-node
 
-      - uses: ./.github/actions/setup-node
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+      
+      - name: Install node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '>=20'
+          cache: 'pnpm'
 
       - name: Create Project
         id: createProject
         uses: ./
         with:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: donaldfoss-scc_setup-sonar-action
+          SONAR_ORGANIZATION: donaldfoss-scc
 
       - name: Run tests
         run: |
