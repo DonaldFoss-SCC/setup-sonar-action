@@ -48,7 +48,7 @@ jobs:
 
       - name: Setup Sonar
         id: setupSonar
-        uses: nelsoncanarinho/setup-sonar@v1.0.0
+        uses: Sleep-Country/setup-sonar@v1.0.0
         with:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
